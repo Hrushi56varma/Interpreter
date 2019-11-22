@@ -8,12 +8,12 @@ public class StatLabel extends Stat {
 	Block enclosingBlock;  //block where label appears
 	public int index;             //index of label in statement list
 	
-//	public StatLabel(Token firstToken, Name label) {
-//		super(firstToken);
-//		this.label = label;
-//		Block parent;
-//		int index;  
-//	}
+	public StatLabel(Token firstToken, Name label) {
+		super(firstToken);
+		this.label = label;
+		Block parent;
+		int index;  
+	}
 	
 	
 

@@ -395,7 +395,7 @@ import interpreter.StaticSemanticException;
 		void table1() throws Exception {
 			String input = "a = {\"x\", 2, 3} return a";
 			show(input);
-			List<LuaValue> ret = interpret(input);
+			List<LuaValue> ret = interpret(input);   
 			show(ret);
 			List<LuaValue> expectedList = new ArrayList<>();
 			LuaTable expected = new LuaTable();

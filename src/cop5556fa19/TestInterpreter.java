@@ -121,15 +121,17 @@ import interpreter.StaticSemanticException;
 			assertEquals(expected, ret);
 		}
 		
-		//@Test 
-		//void Alitest1() throws Exception{
-			//String input = "a=toNumber(\\\"2\\\"); return 1+a";
-			//show(input);
-			//List<LuaValue> ret = interpret(input);
-			//show(ret);
-			//List<LuaValue> expected = makeExpectedWithInts(-2);
-			//assertEquals(expected, ret);
-		//}
+		@Test 
+		void Alitest1() throws Exception{
+			String input = "x = { \nprint(\n\"This is returning nothing. Should this throw?\"\n) \n} \nreturn x";
+			show(input);
+			List<LuaValue> ret = interpret(input);
+			show(ret);
+			List<LuaValue> expectedList = new ArrayList<>();
+		    LuaTable expected = new LuaTable();
+		    expectedList.add(expected);
+			assertEquals(expectedList, ret);
+		}
 		
 		
 		@Test 
@@ -528,23 +530,23 @@ import interpreter.StaticSemanticException;
 		
 
 		
-		//@Test 
-		//void testSetField1() throws Exception{
-			//String input = "a = {1,2,3} t= {a} dummy = print(t[1][3]) return t";
-			//show(input);
-			//List<LuaValue> ret = interpret(input);
-			//show(ret);	
-			//List<LuaValue> expectedList = new ArrayList<>();
-			//LuaTable a = new LuaTable();
-			//a.put(new LuaInt(1),new LuaInt(1));
-			//a.put(new LuaInt(2),new LuaInt(2));
-			//a.put(new LuaInt(3),new LuaInt(3));
+		@Test 
+		void testSetField1() throws Exception{
+			String input = "a = {1,2,3} t= {a} dummy = print(t[1][3]) return t";
+			show(input);
+			List<LuaValue> ret = interpret(input);
+			show(ret);	
+			List<LuaValue> expectedList = new ArrayList<>();
+			LuaTable a = new LuaTable();
+			a.put(new LuaInt(1),new LuaInt(1));
+			a.put(new LuaInt(2),new LuaInt(2));
+			a.put(new LuaInt(3),new LuaInt(3));
 			
-			//LuaTable expected = new LuaTable();
-			//expectedList.add(expected);
-			//expected.put(new LuaInt(1), a);
-			//assertEquals(expectedList,ret);
-		//}
+			LuaTable expected = new LuaTable();
+			expectedList.add(expected);
+			expected.put(new LuaInt(1), a);
+			assertEquals(expectedList,ret);
+		}
 		
 
 }

@@ -113,15 +113,16 @@ public abstract class ASTVisitorAdapter implements ASTVisitor {
 				}
 				if(((ExpName)a.f).name.matches("print")) {
 					print ai = new print();
-					ai.call(arguments);
-				}
+					List<LuaValue> asd =  ai.call(arguments);
+								}
 				else if(((ExpName)a.f).name.matches("println")) {
 					println ai = new println();
 					ai.call(arguments);
 				}
 				else if(((ExpName)a.f).name.matches("toNumber")) {
 					toNumber ai =  new toNumber();
-					ai.call(arguments);
+						List<LuaValue> asd =  ai.call(arguments);
+					return asd.get(0);
 				}
 			}
 
@@ -464,7 +465,8 @@ public abstract class ASTVisitorAdapter implements ASTVisitor {
 				int j = 0;
 				while(j<varList.size()) {
 					if(varList.get(j) instanceof ExpName) {
-						((LuaTable)arg).put(varList.get(j).toString(), (LuaValue) checkExp(expList.get(j), arg));
+						LuaValue lx = (LuaValue)checkExp(expList.get(j), arg);
+						((LuaTable)arg).put(varList.get(j).toString(), lx);
 					}
 					else if(varList.get(j) instanceof ExpTableLookup) {
 						ExpTableLookup r1 = (ExpTableLookup) varList.get(j);

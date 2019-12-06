@@ -91,7 +91,16 @@ public class Scanner {
 		        	  if (ch == 45)
 		        	  {
 		        		  pos =+1;
-		        		  while( ch != -1 && ch != 10 && ch != 13) {
+		        		  while( ch != -1 && ch != 10 && ch != 13 || ch == 92) {
+		        			  if(ch == 92) {
+		        				 
+		        				  if(ch == 92) {
+		        					  ch = r.read();
+		        					  if ( ch == 'n') {
+		  								break;
+		  							}
+		        				  }
+		        			  }
 		        			  pos += 1;
 		        		  ch = r.read();}
 		        	  }
@@ -303,7 +312,47 @@ public class Scanner {
 							st.append("\u0011");
 						}
 						else if ( ch == 92) {
-							st.append("\\");
+							ch = r.read();
+							if (ch == 'a') {
+								st.append("\u0007");
+							}
+							
+							else if (ch == 'b') {
+								st.append("\u0008");
+							}
+							
+							else if ( ch == 'f') {
+								st.append("\u0012");
+							}
+							else if ( ch == 'n') {
+								line += 1;
+								pos = 0;
+							}
+							else if ( ch == 'r') {
+								st.append("\u00013");
+							}
+							else if ( ch == 't') {
+								st.append("\u0009");
+							}
+							else if ( ch == 'v') {
+								st.append("\u0011");
+								r.mark(Integer.MAX_VALUE);
+								ch = r.read();
+								if(ch == -1) {
+									throw new LexicalException("Invalid characters found");
+								}
+								r.reset();
+							}
+							else if ( ch == '"') {
+								st.append('"');
+							}
+							else if ( ch == 39) {
+								st.append('\'');
+							}
+							
+							else {
+								throw new LexicalException("Invalid characters found");
+							}
 						}
 						else if ( ch == '"') {
 							st.append('"');
@@ -312,9 +361,9 @@ public class Scanner {
 							st.append('\'');
 						}
 						else {
-							st.append((char)ch);
-							ch = r.read();
+							throw new LexicalException("Invalid characters found");
 							}
+						
 							}break;
 					
 					case 34: {

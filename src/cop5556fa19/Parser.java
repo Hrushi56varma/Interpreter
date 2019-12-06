@@ -527,8 +527,16 @@ return fl;
 			match(ASSIGN);
 			List<Exp> explist = new ArrayList<>();
 			Exp ex = exp();
+			while(isKind(LSQUARE)) {
+				match(LSQUARE);
+				List<Exp> argsexpl = new ArrayList<>();
+				Exp ea = exp();
+				match(RSQUARE);
+				e = new ExpTableLookup(first, ex, ea);
+		}
 			ex = exprlist(ex);
 			explist.add(ex);
+			
 			while(isKind(COMMA)) {
 				match(COMMA);
 				Exp e1 = exp();
@@ -557,7 +565,33 @@ return fl;
 				match(LPAREN);
 				List<Exp> argsexpl = new ArrayList<>();
 				if(!isKind(RPAREN)) {
-				argsexpl.add(exp());
+					if(isKind(NAME)) {
+						Exp ename = exp();
+						while(isKind(LSQUARE)) {
+							match(LSQUARE);
+							List<Exp> argsexplintsble = new ArrayList<>();
+							Exp e1 = exp();
+							match(RSQUARE);
+							e = new ExpTableLookup(first, ename, e1);
+						}
+						while(isKind(DOT)) {
+							match(DOT);
+							List<Exp> argsexplintsble = new ArrayList<>();
+							Exp e1 = exp();
+							e = new ExpTableLookup(first, ename, e1);
+						}
+						while(isKind(COLON)) {
+							match(COLON);
+							List<Exp> argsexplintsble = new ArrayList<>();
+							Exp e1 = exp();
+							e = new ExpTableLookup(first, ename, e1);
+						}
+							
+						
+					}
+					else {
+						argsexpl.add(exp());
+					}
 				}
 				while(isKind(COMMA)) {
 					match(COMMA);	
